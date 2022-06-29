@@ -1,5 +1,7 @@
 const drawButton = document.querySelector("button")
 const cardDisplay = document.querySelector('div[id="cardDisplay')
+const totalDisplay = document.querySelector('h3[id="totalDisplay"]')
+let total = 0
 
 const getDeck = async () => {
     return (await axios.get(
@@ -20,15 +22,19 @@ const drawCard = async (deckId) => {
     //console.log(cardDisplay.innerHTML)
     let faceValue
     switch(newCard.value) {
+        case 'ACE': faceValue = 1
+        break
         case 'JACK': faceValue = 11
         break
         case 'QUEEN': faceValue = 12
         break
         case 'KING': faceValue = 13
         break
-        default: faceValue = newCard.value
+        default: faceValue = parseInt(newCard.value)
     }
     console.log(faceValue)
+    total += faceValue
+    totalDisplay.innerHTML = `Total: ${total}`
 }
 getDeck().then((value) => {
     console.log(value)
