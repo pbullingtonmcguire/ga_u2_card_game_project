@@ -8,16 +8,27 @@ const getDeck = async () => {
 }
 
 const drawCard = async (deckId) => {
-    console.log(deckId)
-    newCard = await axios.get(
+    //console.log(deckId)
+    let newCard = await axios.get(
         `http://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`
     )
     newCard = newCard.data.cards[0]
-    console.log(newCard)
+    // console.log(newCard)
     cardImage = newCard.images.png
-    console.log(cardImage)
+    // console.log(cardImage)
     cardDisplay.innerHTML += `<img src="${cardImage}"></img>` 
-    console.log(cardDisplay.innerHTML)
+    //console.log(cardDisplay.innerHTML)
+    let faceValue
+    switch(newCard.value) {
+        case 'JACK': faceValue = 11
+        break
+        case 'QUEEN': faceValue = 12
+        break
+        case 'KING': faceValue = 13
+        break
+        default: faceValue = newCard.value
+    }
+    console.log(faceValue)
 }
 getDeck().then((value) => {
     console.log(value)
