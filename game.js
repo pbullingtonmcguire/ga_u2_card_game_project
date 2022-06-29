@@ -35,7 +35,7 @@ const drawCard = async (deckId) => {
 }
 
 const playerDraw = async (deckId) => {
-    faceValue = drawCard(deckId)
+    faceValue = await drawCard(deckId)
     playerTotal += faceValue
     totalDisplay.innerHTML = `Total: ${playerTotal}`
     return faceValue
@@ -49,5 +49,5 @@ const hit = async (deckId) => {
 getDeck().then((value) => {
     console.log(value)
     deckId = value.data.deck_id
-    drawButton.addEventListener('click', () => (drawCard(deckId)))
+    drawButton.addEventListener('click', () => (playerDraw(deckId)))
 })
