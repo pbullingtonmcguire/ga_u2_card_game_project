@@ -1,7 +1,7 @@
 const drawButton = document.querySelector('button[id="drawCard"')
 const cardDisplay = document.querySelector('div[id="cardDisplay')
 const totalDisplay = document.querySelector('h3[id="totalDisplay"]')
-const standButton = document.querySelector
+const standButton = document.querySelector('button[id="stand"')
 
 let playerTotal = 0
 
@@ -40,7 +40,10 @@ const playerDraw = async (deckId) => {
     faceValue = await drawCard(deckId)
     playerTotal += faceValue
     totalDisplay.innerHTML = `Total: ${playerTotal}`
-    if (playerTotal === 21) {
+    if (playerTotal > 21) {
+        alert('You went over 21, tough luck!')
+        playAgain()
+    } else if (playerTotal === 21) {
         await stand()
     }
     return faceValue
@@ -55,8 +58,13 @@ const stand = async () => {
     alert(`Your total is ${playerTotal}`)
 }
 
+const playAgain = () => {
+    console.log('playAgain() not yet implemented')
+}
+
 getDeck().then((value) => {
     console.log(value)
     deckId = value.data.deck_id
-    drawButton.addEventListener('click', () => (playerDraw(deckId)))
+    drawButton.addEventListener('click', () => {playerDraw(deckId)})
+    standButton.addEventListener('click', stand)
 })
