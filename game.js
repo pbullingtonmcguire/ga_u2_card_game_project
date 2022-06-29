@@ -22,19 +22,18 @@ const drawCard = async (deckId) => {
     //console.log(cardDisplay.innerHTML)
     let faceValue
     switch(newCard.value) {
-        case 'ACE': faceValue = 1
+        case 'ACE': faceValue = 11
         break
-        case 'JACK': faceValue = 11
-        break
-        case 'QUEEN': faceValue = 12
-        break
-        case 'KING': faceValue = 13
+        case 'JACK':
+        case 'QUEEN':
+        case 'KING': faceValue = 10
         break
         default: faceValue = parseInt(newCard.value)
     }
     console.log(faceValue)
     total += faceValue
     totalDisplay.innerHTML = `Total: ${total}`
+    return faceValue
 }
 getDeck().then((value) => {
     console.log(value)
