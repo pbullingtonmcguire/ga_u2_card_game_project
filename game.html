@@ -5,15 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script defer src="game.js"></script>
 </head>
 <body>
     <h1>*game playing sounds*</h1>
     <h3 id="totalDisplay"></h3>
+    <h3 id="dealerDisplay"></h3>
+    <p id="victoryStatus"></p>
     <div id="buttons">
         <button id="drawCard">Hit</button>
         <button id="stand">Stand</button>
+        <button id="playAgain">Play again?</button>
     </div>
     <div id="cardDisplay"></div>
 </body>
