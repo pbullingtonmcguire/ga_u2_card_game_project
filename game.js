@@ -1,5 +1,6 @@
 const drawButton = document.querySelector('button[id="drawCard"')
 const standButton = document.querySelector('button[id="stand"')
+const restartButton = document.querySelector('button[id="playAgain"]')
 const cardDisplay = document.querySelector('div[id="cardDisplay')
 const totalDisplay = document.querySelector('h3[id="totalDisplay"]')
 const victoryStatus = document.querySelector('p[id="victoryStatus"')
@@ -44,23 +45,31 @@ const playerDraw = async (deckId) => {
     totalDisplay.innerHTML = `Total: ${playerTotal}`
     if (playerTotal > 21) {
         victoryStatus.innerText = 'You went over 21, tough luck!'
+        toggleHitAndStand(false)
+        restartButton.style.display = 'inline'
     } else if (playerTotal === 21) {
         await stand()
     }
     return faceValue
 }
 
-const hit = async (deckId) => {
-    const cardValue = await playerDraw(deckId)
+// const hit = async (deckId) => {
+//     const cardValue = await playerDraw(deckId)
     
-}
+// }
 
 const stand = async () => {
     victoryStatus.innerText = `Your total is ${playerTotal}`
+    toggleHitAndStand(false)
+    restartButton.style.display = 'inline'
 }
 
 const playAgain = () => {
-    console.log('playAgain() not yet implemented')
+    restartButton.style.display = 'none'
+    cardDisplay.innerHTML = ''
+    playerTotal = 0
+    victoryStatus.innerText = ''
+    startGame()
 }
 
 const toggleHitAndStand = (toggle) => {
@@ -74,10 +83,20 @@ const toggleHitAndStand = (toggle) => {
     standButton.style.display = displayStyle
 }
 
-getDeck().then((value) => {
-    console.log(value)
-    deckId = value.data.deck_id
-    toggleHitAndStand(true)
-    drawButton.addEventListener('click', () => {playerDraw(deckId)})
-    standButton.addEventListener('click', stand)
-})
+
+startGame = () => {
+    getDeck().then((value) => {
+        console.log(value)
+        deckId = value.data.deck_id
+        toggleHitAndStand(true)
+        for (let i = 0; i < 2; i++) {
+            playerDraw(deckId)
+        }
+    })
+}
+
+drawButton.addEventListener('click', () => {playerDraw(deckId)})
+standButton.addEventListener('click', stand)
+restartButton.addEventListener('click', playAgain)
+
+startGame()
