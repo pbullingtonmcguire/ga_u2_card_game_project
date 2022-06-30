@@ -2,8 +2,9 @@ const drawButton = document.querySelector('button[id="drawCard"')
 const standButton = document.querySelector('button[id="stand"')
 const cardDisplay = document.querySelector('div[id="cardDisplay')
 const totalDisplay = document.querySelector('h3[id="totalDisplay"]')
+const victoryStatus = document.querySelector('p[id="victoryStatus"')
 
-
+let deckId
 let playerTotal = 0
 
 const getDeck = async () => {
@@ -42,8 +43,7 @@ const playerDraw = async (deckId) => {
     playerTotal += faceValue
     totalDisplay.innerHTML = `Total: ${playerTotal}`
     if (playerTotal > 21) {
-        alert('You went over 21, tough luck!')
-        playAgain()
+        victoryStatus.innerText = 'You went over 21, tough luck!'
     } else if (playerTotal === 21) {
         await stand()
     }
@@ -56,7 +56,7 @@ const hit = async (deckId) => {
 }
 
 const stand = async () => {
-    alert(`Your total is ${playerTotal}`)
+    victoryStatus.innerText = `Your total is ${playerTotal}`
 }
 
 const playAgain = () => {
