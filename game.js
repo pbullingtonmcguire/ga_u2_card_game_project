@@ -42,13 +42,13 @@ const drawCard = async (deckId) => {
 const playerDraw = async (deckId) => {
     faceValue = await drawCard(deckId)
     playerTotal += faceValue
-    totalDisplay.innerHTML = `Total: ${playerTotal}`
+    totalDisplay.innerHTML = `Your total: ${playerTotal}`
     if (playerTotal > 21) {
         victoryStatus.innerText = 'You went over 21, tough luck!'
         toggleHitAndStand(false)
         restartButton.style.display = 'inline'
     } else if (playerTotal === 21) {
-        await stand()
+        drawButton.style.display = 'none'
     }
     return faceValue
 }
