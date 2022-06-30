@@ -44,9 +44,7 @@ const playerDraw = async (deckId) => {
     playerTotal += faceValue
     totalDisplay.innerHTML = `Your total: ${playerTotal}`
     if (playerTotal > 21) {
-        victoryStatus.innerText = 'You went over 21, tough luck!'
-        toggleHitAndStand(false)
-        restartButton.style.display = 'inline'
+        gameOver('You went over 21, tough luck!')
     } else if (playerTotal === 21) {
         drawButton.style.display = 'none'
     }
@@ -59,9 +57,7 @@ const playerDraw = async (deckId) => {
 // }
 
 const stand = async () => {
-    victoryStatus.innerText = `Your total is ${playerTotal}`
-    toggleHitAndStand(false)
-    restartButton.style.display = 'inline'
+    gameOver(`Your total is ${playerTotal}`)
 }
 
 const playAgain = () => {
@@ -83,8 +79,13 @@ const toggleHitAndStand = (toggle) => {
     standButton.style.display = displayStyle
 }
 
+const gameOver = (message) => {
+    toggleHitAndStand(false)
+    victoryStatus.innerText = message
+    restartButton.style.display = 'inline'
+}
 
-startGame = () => {
+const startGame = () => {
     getDeck().then((value) => {
         console.log(value)
         deckId = value.data.deck_id
